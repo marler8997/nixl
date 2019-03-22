@@ -1,0 +1,14 @@
+#!/bin/bash
+set -ex pipefail
+
+#nix-build . -A nixl
+
+# the following lines should do the same thing as the above nix-build line
+# but I've split it up to see more details about when it fails
+# ALSO: it doesn't add these as roots so they will automatically get cleaned
+#       up at the next garbage collection
+drv=$(nix-instantiate . -A bootstrap-nixl)
+nix-store -r $drv
+
+drv=$(nix-instantiate . -A nixl)
+nix-store -r $drv

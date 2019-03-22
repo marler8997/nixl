@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# explore the nix build environment
+#
+set -ex pipefail
+drv=$(nix-instantiate . -A explore)
+nix-store -r $drv
